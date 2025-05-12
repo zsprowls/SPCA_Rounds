@@ -1,17 +1,17 @@
-﻿AnimalNumber,AnimalName,Stage,ClearDate
-A0058444173,LUMINAILLE,Hold - Bite/Scratch,45796
-A0058305453,CALISTA,Hold - Bite/Scratch,45793
-A0055431731,PANDA,Hold - Bite/Scratch,45787
-A0057930203,BASIL,Hold - Bite/Scratch,45797
-A0058450606,,Hold - Legal Notice,45791
-A0058438768,,Hold - Legal Notice,45789
-A0058476629,Kitty,Hold - Legal Notice,45794
-A0058441550,,Hold - Legal Notice,45789
-A0057232034,Ella,Hold - Legal Notice,45789
-A0058441545,,Hold - Legal Notice,45789
-A0058461367,,Hold - Stray,45791
-A0058471951,,Hold - Stray,45790
-A0058465907,,Hold - Stray,45790
-A0058467665,,Hold - Stray,45792
-A0058438088,,Hold - Stray,42136
-A0058450122,,Hold - Stray,45790
+﻿AnimalNumber,AnimalName,AnimalType,Stage,ClearDate
+A0058444173,LUMINAILLE,Cat,Hold - Bite/Scratch,5/19/25
+A0058450606,,Cat,Hold - Legal Notice,5/14/25
+A0058438768,,Cat,Hold - Legal Notice,5/12/25
+A0058476629,Kitty,Cat,Hold - Legal Notice,5/17/25
+A0058305453,CALISTA,Dog,Hold - Bite/Scratch,5/16/25
+A0055431731,PANDA,Dog,Hold - Bite/Scratch,5/10/25
+A0058441550,,Dog,Hold - Legal Notice,5/12/25
+A0057232034,Ella,Dog,Hold - Legal Notice,5/12/25
+A0058461367,,Cat,Hold - Stray,5/14/25
+A0058471951,,Cat,Hold - Stray,5/13/25
+A0058465907,,Cat,Hold - Stray,5/13/25
+A0058467665,,Bird,Hold - Stray,5/15/25
+A0057930203,BASIL,Cat,Hold - Bite/Scratch,5/20/25
+A0058438088,,Bird,Hold - Stray,5/12/25
+A0058450122,,Other,Hold - Stray,5/13/25
+A0058441545,,Dog,Hold - Legal Notice,5/12/25

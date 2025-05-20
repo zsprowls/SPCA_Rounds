@@ -44,17 +44,49 @@ if clear_path.exists():
     clear_df.columns = [c.strip() for c in clear_df.columns]
     clear_df['AnimalNumber'] = clear_df['AnimalNumber'].astype(str)
     # Fix Excel serial numbers in ClearDate
-    def excel_serial_to_date(val):
+    def process_clear_date(val):
         try:
+            # First try to handle Excel serial numbers
             val = float(val)
-            return (datetime.datetime(1899, 12, 30) + datetime.timedelta(days=val)).strftime("%m/%d/%y")
+            dt = datetime.datetime(1899, 12, 30) + datetime.timedelta(days=val)
+            return dt.strftime("%m/%d/%y")
         except Exception:
-            return val
+            # Try to parse as date-time string with AM/PM
+            for fmt in ("%m/%d/%Y %I:%M %p", "%m/%d/%Y %I:%M%p", "%m/%d/%y %I:%M %p", "%m/%d/%y %I:%M%p"):
+                try:
+                    dt = datetime.datetime.strptime(str(val), fmt)
+                    return dt.strftime("%m/%d/%y")
+                except Exception:
+                    continue
+            return val  # Return original value if parsing fails
     if 'ClearDate' in clear_df.columns:
-        clear_df['ClearDate'] = clear_df['ClearDate'].apply(excel_serial_to_date)
+        clear_df['ClearDate'] = clear_df['ClearDate'].apply(process_clear_date)
     clear_dates_dict = dict(zip(clear_df['AnimalNumber'], clear_df['ClearDate']))
 else:
     clear_dates_dict = {}
+
+def format_clear_date(date_str):
+    # Convert float to string if needed
+    if isinstance(date_str, float):
+        date_str = str(date_str)
+    # If it's already 'UNK' or empty, return as is
+    if not date_str or date_str.upper() == 'UNK':
+        return date_str
+    # Try to parse and reformat
+    for fmt in ("%m/%d/%Y %I:%M %p", "%m/%d/%Y %I:%M%p", "%m/%d/%y %I:%M %p", "%m/%d/%y %I:%M%p"):
+        try:
+            dt = datetime.datetime.strptime(date_str, fmt)
+            return dt.strftime("%m/%d/%y")
+        except Exception:
+            continue
+    # If the above formats fail, try date-only formats
+    for fmt in ("%m/%d/%y", "%m/%d/%Y", "%-m/%-d/%y", "%-m/%-d/%Y"):
+        try:
+            dt = datetime.datetime.strptime(date_str, fmt)
+            return dt.strftime("%m/%d/%y")
+        except Exception:
+            continue
+    return date_str  # fallback: return as is if parsing fails
 
 # --- Warn if any animals needing clear dates are missing from clear.csv ---
 clear_date_needed = animal_df[
@@ -105,19 +137,6 @@ def map_status(stage):
         return STATUS_MAP['Evaluate']
     return ""
 
-def format_clear_date(date_str):
-    # If it's already 'UNK' or empty, return as is
-    if not date_str or date_str.upper() == 'UNK':
-        return date_str
-    # Try to parse and reformat
-    for fmt in ("%m/%d/%y", "%m/%d/%Y", "%-m/%-d/%y", "%-m/%-d/%Y"):
-        try:
-            dt = datetime.datetime.strptime(date_str, fmt)
-            return dt.strftime("%m/%d/%y")
-        except Exception:
-            continue
-    return date_str  # fallback: return as is if parsing fails
-
 def format_display_line(row):
     name = row["AnimalName"]
     if name.lower() == 'nan' or name.strip() == '' or pd.isna(name):
@@ -127,6 +146,10 @@ def format_display_line(row):
     stage = row["Stage"]
     abbr = map_status(stage)
     animal_id = str(row.get("AnimalNumber", ""))
+    # Extract non-zero digits from animal_id for PetPoint link
+    petpoint_id = ''.join(filter(str.isdigit, animal_id))
+    if petpoint_id:
+        name = f'<a href="https://sms.petpoint.com/sms3/enhanced/animal/{petpoint_id}" target="_blank">{name}</a>'
     clear_date = clear_dates_dict.get(animal_id, "")
     clear_date = format_clear_date(clear_date)
     if abbr:
@@ -145,9 +168,12 @@ def format_kennel_label(row):
 
 # --- Area selection ---
 area_options = {
-    "Canine Adoptions & Holding": [
-        "Dog Adoptions A", "Dog Adoptions B", "Dog Adoptions C", "Dog Adoptions D",
-        "Dog Holding E", "Dog Holding F"
+    "Small Animals & Exotics": [
+        "Bird Cage 1", "Bird Cage 2", "Bird Cage 3", "Bird Cage 4", "Bird Cage EXTRA",
+        "Small Animal 1", "Small Animal 2", "Small Animal 3", "Small Animal 4", "Small Animal 5", "Small Animal 6", "Small Animal 7", "Small Animal 8",
+        "Mammal 1", "Mammal 2", "Mammal 3", "Mammal 4",
+        "Reptile 1", "Reptile 2", "Reptile 3", "Reptile 4", "Reptile 5",
+        "Countertop Cage 1", "Countertop Cage 2"
     ],
     "Adoptions Lobby": [
         "Feature Room 1", "Feature Room 2", "Adoptions Lobby"
@@ -167,6 +193,18 @@ area_options = {
     "Foster Care": [
         "01", "02", "03", "04", "05", "06", "07", "08"
     ],
+    "Cat Treatment": [
+        "01", "02", "03", "04", "05", "06", "Incubator 1", "Incubator 2", "Incubator 3", "Incubator 4", "Incubator 5", "Incubator 6", "Incubator 210A", "Incubator 210B", "Incubator 210C", "Incubator 210D"
+    ],
+    "ICU": [
+        "DENT1", "ICU2", "ICU3", "ICU4", "ICU5", "ICU6", "ICU7", "ICU8"
+    ],
+    "Cat Recovery": [str(i).zfill(2) for i in range(1, 19)],
+    "Dog Recovery": [f"Large {str(i).zfill(2)}" for i in range(1, 5)] + [f"Small {str(i).zfill(2)}" for i in range(1, 7)],
+    "Multi-Species Holding": [
+        "229 Boaphile 1", "229 Boaphile 2", "229 Cat 1", "229 Cat 2", "229 Cat 3", "229 Cat 4", "229 Cat 5", "229 Cat 6", "229 Multi Animal Holding", "229 Rabbitat 1", "229 Rabbitat 2", "229 Room 1", "229 Room 2", "229 Turtle Tank 1", "229 Turtle Tank 2", "229 Turtle Tank 3", "229 Turtle Tank 4",
+        "227 Bird Cage", "227 Boaphile 1", "227 Boaphile 2", "227 Mammal 1", "227 Mammal 2"
+    ],
     "Cat Isolation 235": [
         "Cage 1", "Cage 2", "Cage 3", "Cage 4", "Cage 5", "Cage 6", "Cage 7", "Cage 8", "Cage 9"
     ],
@@ -182,28 +220,13 @@ area_options = {
     "Cat Isolation 231 Holds": [
         "Cage 1", "Cage 2", "Cage 3", "Cage 4", "Cage 5", "Cage 6", "Cage 7", "Cage 8", "Cage 9"
     ],
-    "Cat Treatment": [
-        "01", "02", "03", "04", "05", "06", "Incubator 1", "Incubator 2", "Incubator 3", "Incubator 4", "Incubator 5", "Incubator 6", "Incubator 210A", "Incubator 210B", "Incubator 210C", "Incubator 210D"
-    ],
-    "ICU": [
-        "DENT1", "ICU2", "ICU3", "ICU4", "ICU5", "ICU6", "ICU7", "ICU8"
+    "Canine Adoptions & Holding": [
+        "Dog Adoptions A", "Dog Adoptions B", "Dog Adoptions C", "Dog Adoptions D",
+        "Dog Holding E", "Dog Holding F"
     ],
     "Administration": [
         "Barb H's Office", "Gina's Office", "Sue's Office"
-    ],
-    "Multi-Species Holding": [
-        "229 Boaphile 1", "229 Boaphile 2", "229 Cat 1", "229 Cat 2", "229 Cat 3", "229 Cat 4", "229 Cat 5", "229 Cat 6", "229 Multi Animal Holding", "229 Rabbitat 1", "229 Rabbitat 2", "229 Room 1", "229 Room 2", "229 Turtle Tank 1", "229 Turtle Tank 2", "229 Turtle Tank 3", "229 Turtle Tank 4",
-        "227 Bird Cage", "227 Boaphile 1", "227 Boaphile 2", "227 Mammal 1", "227 Mammal 2"
-    ],
-    "Small Animals & Exotics": [
-        "Bird Cage 1", "Bird Cage 2", "Bird Cage 3", "Bird Cage 4", "Bird Cage EXTRA",
-        "Small Animal 1", "Small Animal 2", "Small Animal 3", "Small Animal 4", "Small Animal 5", "Small Animal 6", "Small Animal 7", "Small Animal 8",
-        "Mammal 1", "Mammal 2", "Mammal 3", "Mammal 4",
-        "Reptile 1", "Reptile 2", "Reptile 3", "Reptile 4", "Reptile 5",
-        "Countertop Cage 1", "Countertop Cage 2"
-    ],
-    "Cat Recovery": [str(i).zfill(2) for i in range(1, 19)],
-    "Dog Recovery": [f"Large {str(i).zfill(2)}" for i in range(1, 5)] + [f"Small {str(i).zfill(2)}" for i in range(1, 7)]
+    ]
 }
 
 st.title("Daily Occupancy Dashboard")

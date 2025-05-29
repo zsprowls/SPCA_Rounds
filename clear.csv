@@ -1,18 +1,16 @@
 AnimalNumber,AnimalName,AnimalType,Stage,ClearDate
-A0058227600,PISHU,Cat,Hold - Bite/Scratch,6/5/2025 9:13 AM
-A0058445654,Mario,Cat,Hold - Bite/Scratch,6/6/2025 3:25 PM
-A0058248928,MAMA MIA,Cat,Hold - Bite/Scratch,6/6/2025 12:00 AM
-A0058365130,Chico,Dog,Hold - Legal Notice,6/6/2025 12:01 AM
-A0058579144,COCO,Dog,Hold - Legal Notice,6/6/2025 12:01 AM
-A0058571057,,Other,Hold - Stray,5/30/2025 2:48 PM
-A0058571053,,Other,Hold - Stray,5/30/2025 2:48 PM
-A0058571051,,Other,Hold - Stray,5/30/2025 2:48 PM
-A0058564519,,Other,Hold - Stray,5/29/2025 1:54 PM
-A0058580905,,Other,Hold - Stray,6/3/2025 1:20 PM
-A0058583274,,Cat,Hold - Stray,6/3/2025 3:43 PM
-A0058583637,,Other,Hold - Stray,6/3/2025 4:03 PM
-A0058553591,,Bird,Hold - Stray,5/29/2025 12:01 AM
-A0058549222,McNugget,Bird,Hold - Stray,5/28/2025 12:01 AM
-A0058579166,,Cat,Hold - Stray,5/31/2025 11:28 AM
-A0058561257,,Cat,Hold - Stray,5/27/2025 11:45 AM
-A0058583652,,Other,Hold - Stray,6/3/2025 4:03 PM
+A0058227600,PISHU,Cat,Hold - Bite/Scratch,06/05/25
+A0058445654,MARIO,Cat,Hold - Bite/Scratch,06/06/25
+A0058248928,MAMA MIA,Cat,Hold - Bite/Scratch,06/06/25
+A0058365130,Chico,Dog,Hold - Legal Notice,06/06/25
+A0058579144,COCO,Dog,Hold - Legal Notice,06/06/25
+A0058579166,,Cat,Hold - Stray,05/31/25
+A0058549222,McNugget,Bird,Hold - Stray,05/28/25
+A0058553591,,Bird,Hold - Stray,05/29/25
+A0058583274,,Cat,Hold - Stray,06/03/25
+A0058580905,,Other,Hold - Stray,06/03/25
+A0058571051,,Other,Hold - Stray,05/30/25
+A0058571053,,Other,Hold - Stray,05/30/25
+A0058571057,,Other,Hold - Stray,05/30/25
+A0058583637,,Other,Hold - Stray,06/03/25
+A0058583652,,Other,Hold - Stray,06/03/25

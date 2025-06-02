@@ -1,16 +1,29 @@
 AnimalNumber,AnimalName,AnimalType,Stage,ClearDate
 A0058227600,PISHU,Cat,Hold - Bite/Scratch,06/05/25
-A0058445654,MARIO,Cat,Hold - Bite/Scratch,06/06/25
 A0058248928,MAMA MIA,Cat,Hold - Bite/Scratch,06/06/25
-A0058365130,Chico,Dog,Hold - Legal Notice,06/06/25
+A0058445654,MARIO,Cat,Hold - Bite/Scratch,06/06/25
+A0058486125,Snowball,Cat,Hold - Bite/Scratch,06/09/25
 A0058579144,COCO,Dog,Hold - Legal Notice,06/06/25
-A0058579166,,Cat,Hold - Stray,05/31/25
-A0058549222,McNugget,Bird,Hold - Stray,05/28/25
-A0058553591,,Bird,Hold - Stray,05/29/25
-A0058583274,,Cat,Hold - Stray,06/03/25
-A0058580905,,Other,Hold - Stray,06/03/25
-A0058571051,,Other,Hold - Stray,05/30/25
-A0058571053,,Other,Hold - Stray,05/30/25
-A0058571057,,Other,Hold - Stray,05/30/25
+A0058365130,Chico,Dog,Hold - Legal Notice,06/06/25
+A0058598619,,Dog,Hold - Legal Notice,06/04/25
+A0058610567,,Cat,Hold - Legal Notice,06/06/25
+A0058610590,Dini,Cat,Hold - Legal Notice,06/06/25
+A0058610557,,Cat,Hold - Legal Notice,06/06/25
+A0058610564,,Cat,Hold - Legal Notice,06/06/25
+A0058610545,,Cat,Hold - Legal Notice,06/06/25
+A0058610562,,Cat,Hold - Legal Notice,06/06/25
+A0058610539,XENA,Cat,Hold - Legal Notice,06/06/25
+A0058596368,,Cat,Hold - Legal Notice,06/04/25
+A0058610580,,Cat,Hold - Legal Notice,06/06/25
 A0058583637,,Other,Hold - Stray,06/03/25
+A0058619160,,Bird,Hold - Stray,06/07/25
+A0058580905,,Other,Hold - Stray,06/03/25
+A0043218333,CEDAR,Cat,Hold - Stray,06/04/25
+A0058591987,,Cat,Hold - Stray,06/03/25
+A0058600883,,Cat,Hold - Stray,06/03/25
+A0058553591,,Bird,Hold - Stray,05/29/25
+A0058579166,,Cat,Hold - Stray,05/31/25
+A0058605662,Milly,Cat,Hold - Stray,06/05/25
 A0058583652,,Other,Hold - Stray,06/03/25
+A0058583274,,Cat,Hold - Stray,06/03/25
+A0058605265,,Other,Hold - Stray,06/05/25
